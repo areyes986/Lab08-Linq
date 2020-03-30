@@ -11,6 +11,7 @@ namespace LINQ
     {
         static void Main(string[] args)
         {
+            // calls the ReadJasn method
             ReadJson();
         }
 
@@ -33,6 +34,7 @@ namespace LINQ
                     count++;
                     Console.WriteLine($"{count}: {item.properties.neighborhood}");
                 }
+                Console.ReadLine();
 
 
                 // queries to select all the neighborhoods with no names
@@ -47,6 +49,8 @@ namespace LINQ
                     noName++;
                     Console.WriteLine($"{noName}: {item}");
                 }
+                Console.ReadLine();
+
 
                 // queries for no duplicates
                 var noDupes = query.Distinct();
@@ -57,6 +61,8 @@ namespace LINQ
                     noDupesCount++;
                     Console.WriteLine($"{noDupesCount}: {item}");
                 }
+                Console.ReadLine();
+
 
                 //this is just one query that does all 3 of the above queries
                 var allQueries = (from neighbor in newData.features
@@ -68,6 +74,8 @@ namespace LINQ
                 {
                     Console.WriteLine(item);
                 }
+                Console.ReadLine();
+
 
 
                 // changing the sstatement into lambda
@@ -80,6 +88,8 @@ namespace LINQ
                 {
                     Console.WriteLine(item);
                 }
+                Console.ReadLine();
+
             }
         }
 
