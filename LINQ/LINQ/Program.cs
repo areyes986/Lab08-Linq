@@ -14,13 +14,16 @@ namespace LINQ
             ReadJson();
         }
 
+        /// <summary>
+        /// This method selects specific data from the json file
+        /// </summary>
         static void ReadJson()
         {
             using (StreamReader reader = File.OpenText(@"../../../data.json"))
             {
+                // allows to read into file
                 string data = reader.ReadToEnd();
                 RootObject newData = JsonConvert.DeserializeObject<RootObject>(data);
-                //Console.WriteLine(newData);
 
                 // lists out all of the neighborhoods
                 int count = 0;
@@ -28,7 +31,7 @@ namespace LINQ
                 {
 
                     count++;
-                    //Console.WriteLine($"{count}: {item.properties.neighborhood}");
+                    Console.WriteLine($"{count}: {item.properties.neighborhood}");
                 }
 
 
@@ -42,7 +45,7 @@ namespace LINQ
                 foreach (var item in query)
                 {
                     noName++;
-                    //Console.WriteLine($"{noName}: {item}");
+                    Console.WriteLine($"{noName}: {item}");
                 }
 
                 // queries for no duplicates
@@ -52,7 +55,7 @@ namespace LINQ
                 foreach (var item in noDupes)
                 {
                     noDupesCount++;
-                    //Console.WriteLine($"{noDupesCount}: {item}");
+                    Console.WriteLine($"{noDupesCount}: {item}");
                 }
 
                 //this is just one query that does all 3 of the above queries
@@ -67,12 +70,16 @@ namespace LINQ
                 }
 
 
+                // changing the sstatement into lambda
+                var lambda = newData.features
+                    .Where(p => p.properties.neighborhood != "")
+                    .Select(p => p.properties.neighborhood)
+                    .Distinct();
 
-
-
-
-
-
+                foreach (var item in lambda)
+                {
+                    Console.WriteLine(item);
+                }
             }
         }
 
