@@ -52,8 +52,23 @@ namespace LINQ
                 foreach (var item in noDupes)
                 {
                     noDupesCount++;
-                    Console.WriteLine($"{noDupesCount}: {item}");
+                    //Console.WriteLine($"{noDupesCount}: {item}");
                 }
+
+                //this is just one query that does all 3 of the above queries
+                var allQueries = (from neighbor in newData.features
+                                  where neighbor.properties.neighborhood != ""
+                                  select neighbor.properties.neighborhood)
+                                  .Distinct();
+
+                foreach (var item in allQueries)
+                {
+                    Console.WriteLine(item);
+                }
+
+
+
+
 
 
 
