@@ -18,8 +18,6 @@ namespace LINQ
         {
             using (StreamReader reader = File.OpenText(@"../../../data.json"))
             {
-                //JObject o = (JObject)JToken.ReadFrom(new JsonTextReader(reader));
-                //Console.WriteLine(o);
                 string data = reader.ReadToEnd();
                 RootObject newData = JsonConvert.DeserializeObject<RootObject>(data);
                 //Console.WriteLine(newData);
@@ -30,18 +28,31 @@ namespace LINQ
                 {
 
                     count++;
-                    Console.WriteLine($"{count}: {item.properties.neighborhood}");
+                    //Console.WriteLine($"{count}: {item.properties.neighborhood}");
                 }
 
-                var queryNoName = from n in newData.features
+
+                // queries to select all the neighborhoods with no names
+                var query = from n in newData.features
                                   where n.properties.neighborhood != ""
                                   select n.properties.neighborhood;
 
+                // using the queryNoName query, this will console write all of the no named neighborhoods
                 int noName = 0;
-                foreach (var item in queryNoName)
+                foreach (var item in query)
                 {
                     noName++;
-                    Console.WriteLine($"{noName}: {item}");
+                    //Console.WriteLine($"{noName}: {item}");
+                }
+
+                // queries for no duplicates
+                var noDupes = query.Distinct();
+
+                int noDupesCount = 0;
+                foreach (var item in noDupes)
+                {
+                    noDupesCount++;
+                    Console.WriteLine($"{noDupesCount}: {item}");
                 }
 
 
